@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday My Queen</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Dancing Script', cursive;
+            text-align: center;
+            overflow-x: hidden;
+            color: #fff;
+        }
+
+        /* Background Video */
+        #video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            object-fit: cover;
+        }
+
+        /* Hidden YouTube Audio */
+        #youtube-audio {
+            display: none;
+        }
+
+        /* Overlay */
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: -1;
+        }
+
+        /* Landing Page */
+        #landing-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+        }
+        #landing-page h1 {
+font-family: 'Great Vibes', cursive;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        #open-surprise {
+            padding: 12px 25px;
+            font-size: 1.3rem;
+            background: #ff4d6d;
+            border: none;
+            color: white;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        #open-surprise:hover {
+            background: #ff1e4d;
+        }
+
+        /* Birthday Page */
+        #birthday-page {
+            display: none;
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .letter {
+            max-width: 600px;
+            margin: 20px auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        .countdown {
+            font-size: 1.5rem;
+            margin: 20px 0;
+            color: #ffd700;
+        }
+
+        .photo-gallery {
+            margin: 30px auto;
+            max-width: 900px;
+        }
+        .photo-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        .photo-grid img {
+            width: 150px;
+            height: 150px;
+            border-radius: 12px;
+            object-fit: cover;
+            transition: transform 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+        .photo-grid img:hover {
+            transform: scale(1.1);
+        }
+
+        .surprise-container {
+            margin-top: 20px;
+        }
+        #surprise-btn {
+            background: #ff4d6d;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+        #surprise-message {
+            margin-top: 15px;
+            font-size: 1.4rem;
+            color: #ffb6c1;
+            display: none;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Video -->
+    <video id="video-background" autoplay muted loop>
+        <source src="videos/our-video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Overlay -->
+    <div id="overlay"></div>
+
+    <!-- Hidden YouTube Audio -->
+    <iframe 
+        id="youtube-audio"
+        src=""
+        frameborder="0"
+        allow="autoplay">
+    </iframe>
+
+    <!-- Landing Page -->
+    <div id="landing-page">
+        <h1>Hey Love ❤️ Are You Ready for Your Surprise?</h1>
+        <button id="open-surprise">Open Your Birthday Surprise 🎁</button>
+    </div>
+
+    <!-- Birthday Page -->
+    <div id="birthday-page">
+        <div class="countdown" id="countdown"></div>
+        <div class="letter">
+            <h2>Happy Birthday My Pasandida Aurat ❤️</h2>
+            <p>
+                From school days to now, every moment with you has been magical.  
+                You are my first and last love, my everything.  
+                Today you turn 20, and I promise to make every year more special than the last.  
+                I love you endlessly, and I am so blessed to have you.  
+                Happy Birthday, Jija...!! 🎂💕
+            </p>
+        </div>
+        <div class="photo-gallery">
+            <h3>Our Special Moments 📸</h3>
+            <div class="photo-grid">
+                <img src="photos/photo1.jpg" alt="Photo 1">
+                <img src="photos/photo2.jpg" alt="Photo 2">
+                <img src="photos/photo3.jpeg" alt="Photo 3">
+                <img src="photos/photo4.jpeg" alt="Photo 4">
+                <img src="photos/photo5.jpg" alt="Photo 5">
+            </div>
+        </div>
+        <div class="surprise-container">
+            <button id="surprise-btn">Click to Celebrate 🎉</button>
+            <p id="surprise-message">You are my forever and always ❤️</p>
+        </div>
+    </div>
+
+    <canvas id="confetti"></canvas>
+
+    <script>
+        // Show Birthday Page & Start Audio
+        document.getElementById('open-surprise').addEventListener('click', function () {
+            document.getElementById('landing-page').style.display = 'none';
+            document.getElementById('birthday-page').style.display = 'block';
+
+            // Start YouTube audio from 00:30 to 1:45
+            document.getElementById('youtube-audio').src = 
+                "https://www.youtube.com/embed/55c6IlV7BEo?autoplay=1&mute=0&start=30&end=105&loop=1&playlist=55c6IlV7BEo";
+        });
+
+        // Surprise Button
+        document.getElementById('surprise-btn').addEventListener('click', function () {
+            document.getElementById('surprise-message').style.display = 'block';
+            startConfetti();
+        });
+
+        // Countdown
+        const birthday = new Date("August 7, 2025 00:00:00").getTime();
+        const countdownEl = document.getElementById("countdown");
+        setInterval(() => {
+            const now = new Date().getTime();
+            const diff = birthday - now;
+
+            if (diff <= 0) {
+                countdownEl.innerHTML = "🎉 It's Your Birthday Today! 🎂";
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+            countdownEl.innerHTML = `⏳ ${days}d ${hours}h ${mins}m ${secs}s until your 20th birthday!`;
+        }, 1000);
+
+        // Confetti Effect
+        const canvas = document.getElementById("confetti");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const confetti = [];
+        for (let i = 0; i < 200; i++) {
+            confetti.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                r: Math.random() * 6 + 2,
+                d: Math.random() * 0.5 + 0.5,
+                color: `hsl(${Math.random() * 360}, 100%, 50%)`
+            });
+        }
+
+        function drawConfetti() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            confetti.forEach(c => {
+                ctx.beginPath();
+                ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+                ctx.fillStyle = c.color;
+                ctx.fill();
+                c.y += c.d;
+                if (c.y > canvas.height) c.y = 0;
+            });
+        }
+
+        function startConfetti() {
+            setInterval(drawConfetti, 20);
+        }
+    </script>
+</body>
+</html>
